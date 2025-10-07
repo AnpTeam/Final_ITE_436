@@ -22,10 +22,21 @@ model.fc = nn.Linear(model.fc.in_features, 2)  # 2 classes: cat/dog
 model = model.to(device)
 
 # -----------------------------
-# 2.1 Safe Model Path Handling
+# 2.1 Safe Path Helper
 # -----------------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(BASE_DIR, "resource", "dogvscat", "resnet18_dogcat_best.pth")
+def get_path(*relative_parts):
+    """
+    Build absolute path relative to project root (one level above this file)
+    Example: root/resource/dogvscat/filename.pth
+    """
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    root_dir = os.path.abspath(os.path.join(base_dir, ".."))  # go up one level
+    return os.path.join(root_dir, *relative_parts)
+
+# -----------------------------
+# 2.2 Load Model
+# -----------------------------
+model_path = get_path("resource", "dogvscat", "resnet18_dogcat_best.pth")
 
 if os.path.exists(model_path):
     try:
@@ -41,6 +52,7 @@ else:
 # 3. Streamlit Canvas
 # -----------------------------
 st.title("🐶🐱 Cat vs Dog Drawing Classifier")
+
 
 canvas_result = st_canvas(
     fill_color="white",
