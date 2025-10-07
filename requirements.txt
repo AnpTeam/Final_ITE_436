@@ -4,3 +4,7 @@ pandas
 openpyxl
 joblib
 scikit-learn
+streamlit-drawable-canvas
+torch
+torchvision
+pillow
