@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import transforms, models
 from streamlit_drawable_canvas import st_canvas
-from pathlib import Path
+import os
 
 # -----------------------------
 # 1. Device
@@ -21,10 +21,13 @@ model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 model.fc = nn.Linear(model.fc.in_features, 2)  # 2 classes: cat/dog
 model = model.to(device)
 
-# Path setup
-model_path = Path("resource/dogvscat/resnet18_dogcat_best.pth")
+# -----------------------------
+# 2.1 Safe Model Path Handling
+# -----------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "resource", "dogvscat", "resnet18_dogcat_best.pth")
 
-if model_path.exists():
+if os.path.exists(model_path):
     try:
         model.load_state_dict(torch.load(model_path, map_location=device))
         model.eval()
@@ -57,7 +60,7 @@ if st.button("Predict"):
     if canvas_result.image_data is not None:
         img = Image.fromarray(canvas_result.image_data.astype('uint8')).convert("L")
 
-        # Invert color (so black = foreground)
+        # Invert color (black = foreground)
         img = Image.fromarray(255 - np.array(img))
 
         # Resize for ResNet
