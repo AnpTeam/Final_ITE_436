@@ -14,10 +14,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 
-# -----------------------------
-# Streamlit Page Config
-# -----------------------------
-st.set_page_config(page_title="📈 Youtube Analytics Tendency")
 
 
 # -----------------------------

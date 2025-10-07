@@ -1,8 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide")
-
 notion_embed_url = "https://infrequent-eagle-7da.notion.site/ebd/246baceec532804eabb1d31e9c9032e4"
 
 card_html = f"""

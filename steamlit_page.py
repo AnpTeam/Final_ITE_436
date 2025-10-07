@@ -1,5 +1,11 @@
 import streamlit as st
 
+
+# -----------------------------
+# Streamlit Page Config
+# -----------------------------
+st.set_page_config(layout="wide")
+
 #--- Page Setup ---
 about_page = st.Page(
     page="pages/Introduction.py",
