@@ -159,11 +159,11 @@ st.divider()
 canvas_col, result_col = st.columns([0.6, 0.4], gap="large")
 
 with canvas_col:
-    st.header("🎨 พื้นที่วาดรูป")
+    st.header("🎨 Canvas Area")
 
     # ส่วนควบคุม
-    stroke_width = st.slider("ความหนาของเส้น:", 1, 50, 15)
-    drawing_mode = st.selectbox("โหมดการวาด:", ("freedraw", "line", "rect", "circle", "transform"))
+    stroke_width = st.slider("Stroke width :", 1, 50, 15)
+    drawing_mode = st.selectbox("Drawing Mode :", ("freedraw", "line", "rect", "circle", "transform"))
     
     # Canvas
     canvas_result = st_canvas(
@@ -179,10 +179,10 @@ with canvas_col:
     )
 
     # ปุ่ม Predict
-    predict_button = st.button("✨ ทายผล!", use_container_width=True)
+    predict_button = st.button("✨ Prediction!", use_container_width=True)
 
 with result_col:
-    st.header("🤖 ผลการทำนาย")
+    st.header("🤖 Result")
 
     # ใช้ div ที่มี class="result-card" เพื่อแสดงผลลัพธ์ในรูปแบบการ์ด
     st.markdown('<div class="result-card">', unsafe_allow_html=True)
@@ -193,15 +193,15 @@ with result_col:
         )
         
         if predicted_class:
-            st.markdown("ฉันคิดว่าเป็น...")
+            st.markdown("This is...")
             # แสดงผลลัพธ์ในรูปแบบ Badge
             st.markdown(f'<span class="prediction-badge">{predicted_class}</span>', unsafe_allow_html=True)
             st.metric(label="ความมั่นใจ", value=f"{confidence:.2%}")
             
             st.divider()
             
-            st.write("**ภาพที่ประมวลผลแล้ว** (สิ่งที่โมเดลเห็น)")
-            st.image(processed_image, use_column_width=True)
+            st.write("**Precessing Image** (สิ่งที่โมเดลเห็น)")
+            st.image(processed_image)
         else:
             st.warning("ดูเหมือนว่าคุณยังไม่ได้วาดอะไรเลยนะ 🤔")
     else:
